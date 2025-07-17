@@ -1,0 +1,35 @@
+# Official WhisperX v3.4.2 from GitHub
+git+https://github.com/m-bain/whisperX.git
+
+# PyTorch with CUDA 12.1 support
+torch==2.1.2
+torchaudio==2.1.2  
+torchvision==0.16.2
+--index-url https://download.pytorch.org/whl/cu121
+
+# RunPod and web dependencies
+runpod>=1.6.0
+requests>=2.31.0
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+aiofiles>=23.2.1
+pydantic>=2.5.0
+
+# Core dependencies (should be included with WhisperX but ensuring compatibility)
+transformers>=4.36.0
+accelerate>=0.25.0
+numpy>=1.24.0,<2.0.0
+scipy>=1.11.0
+
+# Audio processing
+librosa>=0.10.1
+soundfile>=0.12.1
+ffmpeg-python>=0.2.0
+
+# Speaker diarization (included with WhisperX but ensuring latest versions)
+pyannote.audio>=3.1.0
+speechbrain>=0.5.0
+
+# Optional: Performance optimization
+numba>=0.58.0 

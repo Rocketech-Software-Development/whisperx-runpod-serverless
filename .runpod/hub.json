@@ -1,0 +1,95 @@
+{
+  "title": "WhisperX v3.4.2 Official - GPU Accelerated",
+  "description": "Official WhisperX v3.4.2 with speaker diarization, word-level timestamps, and multi-language support. Optimized for GPU acceleration.",
+  "type": "serverless",
+  "category": "audio",
+  "iconUrl": "https://raw.githubusercontent.com/m-bain/whisperX/main/assets/whisperx-logo.png",
+  
+  "config": {
+    "runsOn": "GPU",
+    "containerDiskInGb": 50,
+    "gpuCount": 1,
+    "gpuIds": "RTX A5000,RTX A6000,RTX 3090,RTX 4090,L4,L40,A40,A100,H100",
+    "allowedCudaVersions": ["12.1", "12.0", "11.8"],
+    
+    "presets": [
+      {
+        "name": "Fast Transcription",
+        "defaults": {
+          "MODEL_NAME": "base",
+          "BATCH_SIZE": 16,
+          "ENABLE_DIARIZATION": false
+        }
+      },
+      {
+        "name": "High Quality + Diarization",
+        "defaults": {
+          "MODEL_NAME": "large-v3",
+          "BATCH_SIZE": 8,
+          "ENABLE_DIARIZATION": true
+        }
+      }
+    ],
+    
+    "env": [
+      {
+        "key": "MODEL_NAME",
+        "input": {
+          "type": "select",
+          "name": "Whisper Model Size",
+          "description": "Model size (larger = better accuracy, slower)",
+          "default": "large-v3",
+          "options": [
+            {"label": "Tiny (39MB)", "value": "tiny"},
+            {"label": "Base (150MB)", "value": "base"},
+            {"label": "Small (500MB)", "value": "small"},
+            {"label": "Medium (1.5GB)", "value": "medium"},
+            {"label": "Large-v2 (3GB)", "value": "large-v2"},
+            {"label": "Large-v3 (3GB)", "value": "large-v3"}
+          ]
+        }
+      },
+      {
+        "key": "ENABLE_DIARIZATION",
+        "input": {
+          "type": "boolean",
+          "name": "Enable Speaker Diarization",
+          "description": "Identify different speakers in the audio",
+          "default": true
+        }
+      },
+      {
+        "key": "HUGGINGFACE_TOKEN",
+        "input": {
+          "type": "string",
+          "name": "HuggingFace Token",
+          "description": "Required for speaker diarization models",
+          "default": "",
+          "required": false,
+          "secret": true
+        }
+      },
+      {
+        "key": "BATCH_SIZE",
+        "input": {
+          "type": "number",
+          "name": "Batch Size",
+          "description": "Batch size for processing (higher = faster but more memory)",
+          "min": 1,
+          "max": 32,
+          "default": 16
+        }
+      },
+      {
+        "key": "LANGUAGE",
+        "input": {
+          "type": "string",
+          "name": "Language Code",
+          "description": "Language code (e.g., 'en', 'ru', 'es') or leave empty for auto-detection",
+          "default": "",
+          "advanced": true
+        }
+      }
+    ]
+  }
+} 
