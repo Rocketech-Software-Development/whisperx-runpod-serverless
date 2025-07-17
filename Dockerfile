@@ -77,7 +77,6 @@ RUN pip install --no-cache-dir \
 
 # Copy application files
 COPY handler.py /app/
-COPY utils.py /app/
 COPY requirements.txt /app/
 
 # Create cache directories
